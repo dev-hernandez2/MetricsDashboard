@@ -1,0 +1,2 @@
+docker build -t devhernandez2/metric_dash_backend:latest .
+docker push  devhernandez2/metric_dash_backend:latest     
