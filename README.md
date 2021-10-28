@@ -6,7 +6,7 @@
 
 ![monitoring_svc_pods_screenshot](answer-img/monitoring_svc_pods_screenshot.png)
 
-![observability_svc_pod_screenshot](answer-img/exitobservability_svc_pod_screenshot.png)
+![observability_svc_pod_screenshot](answer-img/observability_svc_pod_screenshot.png)
 
 ## Setup the Jaeger and Prometheus source
 *TODO:* Expose Grafana to the internet and then setup Prometheus as a data source. Provide a screenshot of the home page after logging into Grafana.
