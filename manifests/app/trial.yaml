@@ -1,7 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: trial-app
+  annotations:
+    sidecar.jaegertracing.io/inject: 'true'
+    prometheus.io/scrape: "true"
+    prometheus.io/path: /metrics
+    prometheus.io/port: trialport
+  labels:
+    name: trial
+    release: prometheus
+  name: trial
 spec:
   replicas: 3
   selector:
@@ -14,18 +22,45 @@ spec:
     spec:
       containers:
       - name: trial
-        image: ghcr.io/thejaysmith/trial:v1
+        image: devhernandez2/metric_dash_trial:latest
+        imagePullPolicy: Always
         ports:
-        - containerPort: 8080
+        - name: trialport
+          containerPort: 8080
+          protocol: TCP
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: trial-service
+  labels:
+    app: trial
 spec:
   selector:
     app: trial
   ports:
-    - port: 8080
-      targetPort: 8080
+    - name: trial
+      protocol: TCP
+      port: 8088
+      targetPort: trialport
   type: LoadBalancer
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: trial
+  namespace: monitoring
+  labels:
+    app: trial
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: trial
+  endpoints:
+  - port: trial
+    path: /metrics
+    interval: 15s
+  namespaceSelector:
+    matchNames:
+    - default
