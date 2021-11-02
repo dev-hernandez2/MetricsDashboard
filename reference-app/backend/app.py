@@ -1,63 +1,81 @@
-from flask import Flask, render_template, request, jsonify
-
-import pymongo
+from os import getenv
 import logging
-from flask_pymongo import PyMongo
-from flask_cors import CORS
+import pymongo
+
+from flask import Flask, render_template, request, jsonify, json
 
 from prometheus_flask_exporter import PrometheusMetrics
-from prometheus_flask_exporter.multiprocess import GunicornInternalPrometheusMetrics
 
+from flask_pymongo import PyMongo
 from jaeger_client import Config
-from jaeger_client.metrics.prometheus import PrometheusMetricsFactory
-from flask_opentracing import FlaskTracing
+
+
+
+JAEGER_HOST = getenv('JAEGER_HOST', 'localhost')
 
 app = Flask(__name__)
-logging.basicConfig(level=logging.INFO)
-
-#===============Jeager method=============================#
-def config_tracer():
-    config = Config(
-           config = {
-                'sampler': {
-                'type': 'const',
-                'param': 1,
-                
-            },
-            'logging': True,
-        },
-        service_name="app_backend",
-        validate=True,
-        metrics_factory=PrometheusMetricsFactory(service_name_label="app_backend")
-    )
-    return config.initialize_tracer()
-#===============Jeager method ends=============================#
 
 app.config['MONGO_DBNAME'] = 'example-mongodb'
 app.config['MONGO_URI'] = 'mongodb://example-mongodb-svc.default.svc.cluster.local:27017/example-mongodb'
-
 mongo = PyMongo(app)
-metrics = GunicornInternalPrometheusMetrics(app)
-CORS(app)
 
-jaeger_tracer = config_tracer()
-tracing = FlaskTracing(jaeger_tracer, False, app)
+metrics = PrometheusMetrics(app, group_by='endpoint')
+metrics.info('app_info', 'Application Info', version='1.0.3')
+
+metrics.register_default(
+    metrics.counter(
+        'by_path_counter', 'Request count by request paths',
+        labels={'path': lambda: request.path}
+    )
+)
+
+
+endpoint_counter = metrics.counter(
+    'endpoint_counter', 'Request count by endpoints',
+    labels={'endpoint': lambda: request.endpoint}
+)
+
+#==================== tracer ============================
+def init_tracer(service):
+    logging.getLogger('').handlers = []
+    logging.basicConfig(format='%(message)s', level=logging.DEBUG)
+
+    config = Config(
+        config={
+            'sampler': {
+                'type': 'const',
+                'param': 1,
+            },
+            'logging': True,
+            'local_agent': {'reporting_host': JAEGER_HOST},
+        },
+        service_name=service,
+    )
+    return config.initialize_tracer()
+
+tracer = init_tracer('backend')
+
+#========================================================
 
 
 
 @app.route('/')
+@endpoint_counter
 def homepage():
-    return "Hello World"
+    with tracer.start_span('hello-world'):
+        message = "Hello World"
+    return message
 
 
 @app.route('/api')
+@endpoint_counter
 def my_api():
-    answer = "something"
+    with tracer.start_span('api'):
+        answer = "something"
     return jsonify(repsonse=answer)
 
-
 @app.route('/star', methods=['POST'])
-@tracing.trace()
+@endpoint_counter
 def add_star():
   star = mongo.db.stars
   name = request.json['name']
@@ -68,5 +86,4 @@ def add_star():
   return jsonify({'result' : output})
 
 if __name__ == "__main__":
-    app.run(debug=True)
-
+    app.run()

@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    sidecar.jaegertracing.io/inject: 'true'
     prometheus.io/scrape: "true"
     prometheus.io/path: /metrics
     prometheus.io/port: trialport
@@ -32,7 +31,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: trial-service
+  name: trial
   labels:
     app: trial
 spec:
@@ -41,7 +40,7 @@ spec:
   ports:
     - name: trial
       protocol: TCP
-      port: 8088
+      port: 8080
       targetPort: trialport
   type: LoadBalancer
 ---

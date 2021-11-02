@@ -21,9 +21,12 @@ spec:
         app: backend
     spec:
       containers:
-      - name: backend
+      - env:
+        - name: JAEGER_HOST
+          value: my-jaeger-tracing-default-agent.default.svc.cluster.local
         image: devhernandez2/metric_dash_backend:latest
         imagePullPolicy: Always
+        name: backend
         ports:
         - name: backendport
           containerPort: 8080
@@ -32,7 +35,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend-service
+  name: backend
   labels:
     app: backend
 spec:

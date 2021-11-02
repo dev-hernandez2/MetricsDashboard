@@ -2,11 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    sidecar.jaegertracing.io/inject: 'true'
     prometheus.io/scrape: "true"
     prometheus.io/path: /metrics
     prometheus.io/port: frontendport
-
   labels:
     name: frontend
     release: prometheus
@@ -33,7 +31,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend-service
+  name: frontend
   labels:
     app: frontend
 spec:
