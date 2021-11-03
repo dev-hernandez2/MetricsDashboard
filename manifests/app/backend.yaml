@@ -24,7 +24,7 @@ spec:
       - env:
         - name: JAEGER_HOST
           value: simpletest-query.observability.svc.cluster.local
-        image: devhernandez2/metric_dash_backend:latest
+        image: devhernandez2/metric_dash_backend:v1
         imagePullPolicy: Always
         name: backend
         ports:
