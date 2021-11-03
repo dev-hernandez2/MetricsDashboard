@@ -29,7 +29,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend-service
+  name: backend
   labels:
     release: prometheus
     app: backend
@@ -43,6 +43,7 @@ spec:
   ports:
     - name: metrics
       port: 8081
+      targetPort: 8081
   type: LoadBalancer
 ---
 apiVersion: monitoring.coreos.com/v1
