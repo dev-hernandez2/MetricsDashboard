@@ -22,14 +22,14 @@ spec:
     spec:
       containers:
       - name: backend
-        image: devhernandez2/metric_dash_backend:v1
+        image: devhernandez2/metric_dash_backend:latest
         ports:
-        - containerPort: 8081
+        - containerPort: 5000
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend
+  name: backend-service
   labels:
     release: prometheus
     app: backend
@@ -42,8 +42,8 @@ spec:
     app: backend
   ports:
     - name: metrics
-      port: 8080
-      targetPort: 8081
+      port: 8081
+      targetPort: 5000
   type: LoadBalancer
 ---
 apiVersion: monitoring.coreos.com/v1
