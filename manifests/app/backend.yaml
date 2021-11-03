@@ -1,36 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    sidecar.jaegertracing.io/inject: 'true'
-    prometheus.io/scrape: "true"
-    prometheus.io/path: /metrics
-    prometheus.io/port: backendport
-  labels:
-    name: backend
-    release: prometheus
   name: backend
+  annotations:
+    sidecar.jaegertracing.io/inject: "true"
+  labels:
+    app: backend
 spec:
   replicas: 3
   selector:
     matchLabels:
       app: backend
+      release: prometheus
   template:
     metadata:
       labels:
         app: backend
+        release: prometheus
     spec:
       containers:
-      - env:
-        - name: JAEGER_HOST
-          value: simpletest-query.observability.svc.cluster.local
+      - name: backend
         image: devhernandez2/metric_dash_backend:latest
         imagePullPolicy: Always
-        name: backend
         ports:
-        - name: backendport
-          containerPort: 8080
-          protocol: TCP
+        - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
@@ -67,3 +60,7 @@ spec:
   namespaceSelector:
     matchNames:
     - default
+
+
+
+    
