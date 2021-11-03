@@ -42,7 +42,7 @@ spec:
     app: backend
   ports:
     - name: metrics
-      port: 8081
+      port: 8080
       targetPort: 5000
   type: LoadBalancer
 ---
