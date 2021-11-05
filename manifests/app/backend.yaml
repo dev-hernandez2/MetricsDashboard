@@ -1,36 +1,79 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   annotations:
+#     sidecar.jaegertracing.io/inject: 'true'
+#     prometheus.io/scrape: "true"
+#     prometheus.io/path: /metrics
+#     prometheus.io/port: backendport
+#   labels:
+#     name: backend
+#     release: prometheus
+#   name: backend
+# spec:
+#   replicas: 3
+#   selector:
+#     matchLabels:
+#       app: backend
+#   template:
+#     metadata:
+#       labels:
+#         app: backend
+#     spec:
+#       containers:
+#       - env:
+#         - name: JAEGER_HOST
+#           value: simplest-query.observability.svc.cluster.local
+#         image: devhernandez2/metric_dash_backend:v1
+#         imagePullPolicy: Always
+#         name: backend
+#         ports:
+#         - name: backendport
+#           containerPort: 8080
+#           protocol: TCP
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: backend
+#   labels:
+#     app: backend
+# spec:
+#   selector:
+#     app: backend
+#   ports:
+#     - name: backend
+#       protocol: TCP
+#       port: 8081
+#       targetPort: 8080
+#   type: LoadBalancer
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    sidecar.jaegertracing.io/inject: 'true'
-    prometheus.io/scrape: "true"
-    prometheus.io/path: /metrics
-    prometheus.io/port: backendport
-  labels:
-    name: backend
-    release: prometheus
   name: backend
+  annotations:
+    sidecar.jaegertracing.io/inject: "true"
+  labels:
+    app: backend
 spec:
   replicas: 3
   selector:
     matchLabels:
       app: backend
+      release: prometheus
   template:
     metadata:
       labels:
         app: backend
+        release: prometheus
     spec:
       containers:
-      - env:
-        - name: JAEGER_HOST
-          value: simpletest-query.observability.svc.cluster.local
-        image: devhernandez2/metric_dash_backend:latest
+      - name: backend
+        image: devhernandez2/metric_dash_backend:v1
         imagePullPolicy: Always
-        name: backend
         ports:
-        - name: backendport
-          containerPort: 8080
-          protocol: TCP
+        - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
@@ -38,20 +81,21 @@ metadata:
   name: backend
   labels:
     app: backend
+    release: prometheus
 spec:
   selector:
     app: backend
+    release: prometheus
   ports:
     - name: backend
-      protocol: TCP
       port: 8081
-      targetPort: backendport
+      targetPort: 8080
   type: LoadBalancer
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: backend
+  name: observability
   namespace: monitoring
   labels:
     app: backend
@@ -59,7 +103,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: backend
+      release: prometheus
   endpoints:
   - port: backend
     path: /metrics

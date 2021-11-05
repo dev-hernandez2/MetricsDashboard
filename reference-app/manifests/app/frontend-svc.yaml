@@ -2,7 +2,6 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: minikube-ingress
-  annotations:
 spec:
   rules:
   - host: hello.world

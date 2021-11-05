@@ -16,7 +16,7 @@ spec:
       - name: frontend
         image: devhernandez2/metric_dash_frontend:latest
         ports:
-        - containerPort: 8083
+        - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
@@ -26,8 +26,8 @@ spec:
   selector:
     app: frontend
   ports:
-    - port: 8080
-      targetPort: 8083
+    - port: 8083
+      targetPort: 8080
   type: LoadBalancer
 ---
 apiVersion: monitoring.coreos.com/v1
