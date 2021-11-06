@@ -7,33 +7,41 @@ spec:
   selector:
     matchLabels:
       app: trial
+      release: prometheus
   template:
     metadata:
       labels:
         app: trial
+        release: prometheus
     spec:
       containers:
       - name: trial
         image: devhernandez2/metric_dash_trial:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: trial-service
+  name: trial
+  labels:
+    app: trial
+    release: prometheus
 spec:
   selector:
     app: trial
+    release: prometheus
   ports:
-    - port: 808
+    - name: trial
+      port: 8083
       targetPort: 8080
   type: LoadBalancer
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: observability
+  name: trial
   namespace: monitoring
   labels:
     app: trial

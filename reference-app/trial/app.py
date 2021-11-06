@@ -1,7 +1,10 @@
 from flask import Flask, render_template, request, jsonify
+from flask_cors import CORS
+import logging
 
 from jaeger_client import Config
 from jaeger_client.metrics.prometheus import PrometheusMetricsFactory
+from prometheus_flask_exporter.multiprocess import GunicornInternalPrometheusMetrics
 from opentelemetry import trace
 from opentelemetry.exporter import jaeger
 from opentelemetry.sdk.trace import TracerProvider
@@ -20,9 +23,11 @@ trace.get_tracer_provider().add_span_processor(
 )
 
 app = Flask(__name__)
+RequestsInstrumentor().instrument()
 FlaskInstrumentor().instrument_app(app)
 RequestsInstrumentor().instrument()
-
+metrics = GunicornInternalPrometheusMetrics(app)
+CORS(app)
 
 #config = Config(
 #        config={},
