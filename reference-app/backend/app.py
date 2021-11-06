@@ -23,9 +23,9 @@ def config_tracer():
             },
             'logging': True,
         },
-        service_name="backend",
+        service_name="service_backend",
         validate=True,
-        metrics_factory=PrometheusMetricsFactory(service_name_label="backend")
+        metrics_factory=PrometheusMetricsFactory(service_name_label="service_backend")
     )
     return config.initialize_tracer()
 ## jaeger

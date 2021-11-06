@@ -21,19 +21,19 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: trial
+  name: trial-service
 spec:
   selector:
     app: trial
   ports:
-    - port: 8084
+    - port: 808
       targetPort: 8080
   type: LoadBalancer
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: trial
+  name: observability
   namespace: monitoring
   labels:
     app: trial

@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend
+  name: backend-app
   annotations:
     sidecar.jaegertracing.io/inject: "true"
   labels:
@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: devhernandez2/metric_dash_backend:v1
+        image: devhernandez2/metric_dash_backend:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -28,7 +28,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend
+  name: backend-service
   labels:
     app: backend
     release: prometheus
@@ -42,22 +42,22 @@ spec:
       targetPort: 8080
   type: LoadBalancer
 ---
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
-metadata:
-  name: observability
-  namespace: monitoring
-  labels:
-    app: backend
-    release: prometheus
-spec:
-  selector:
-    matchLabels:
-      release: prometheus
-  endpoints:
-  - port: backend
-    path: /metrics
-    interval: 15s
-  namespaceSelector:
-    matchNames:
-    - default
+# apiVersion: monitoring.coreos.com/v1
+# kind: ServiceMonitor
+# metadata:
+#   name: observability
+#   namespace: monitoring
+#   labels:
+#     app: backend
+#     release: prometheus
+# spec:
+#   selector:
+#     matchLabels:
+#       release: prometheus
+#   endpoints:
+#   - port: backend
+#     path: /metrics
+#     interval: 15s
+#   namespaceSelector:
+#     matchNames:
+#     - default
