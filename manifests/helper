@@ -16,3 +16,5 @@
 # EOF
 
 # kubectl get pod -n monitoring | grep grafana
+
+#simplest-query.default.svc.cluster.local:16686
