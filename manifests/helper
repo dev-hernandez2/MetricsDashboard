@@ -1,6 +1,8 @@
 # kubectl port-forward -n observability  service/simplest-query --address 0.0.0.0 16686:16686
-# kubectl port-forward -n monitoring prometheus-grafana-5cddc775c4-86jw9 --address 0.0.0.0 3000
-# kubectl port-forward service/backend-service  8081
+# kubectl port-forward -n monitoring prometheus-grafana-5cddc775c4-grgz9 --address 0.0.0.0 3000
+# kubectl port-forward service/backend  8081
+#kubectl port-forward service/frontend 8082
+#kubectl port-forward service/trial 8081
 
 
 # vagrant ssh -c "sudo cat /etc/rancher/k3s/k3s.yaml" > ~/.kube/config
