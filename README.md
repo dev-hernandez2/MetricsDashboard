@@ -21,8 +21,19 @@
 ## Describe SLO/SLI
 *TODO:* Describe, in your own words, what the SLIs are, based on an SLO of *monthly uptime* and *request response time*.
 
+- **SLI's (Service-Level Indicator)** An specific metric use to mesure the performance of and application or services 
+
+- **SLO (service Level Object)** Usualy is what your organizacion require for mesuring the application uptime of 99.9% and the aver age request response time of a web request would take < 1 seconds to complete
+
+
 ## Creating SLI metrics.
 *TODO:* It is important to know why we want to measure certain metrics for our customer. Describe in detail 5 metrics to measure these SLIs. 
+
+- HTTP ERROR
+- Uptime
+- Trafic
+- Letancy
+- API'S Calls 
 
 ## Create a Dashboard to measure our SLIs
 *TODO:* Create a dashboard to measure the uptime of the frontend and backend services We will also want to measure to measure 40x and 50x errors. Create a dashboard that show these values over a 24 hour period and take a screenshot.
