@@ -40,6 +40,7 @@
 
 ![sli_slo_dashboard_screeshot](answer-img/sli_slo_dashboard_screeshot.png)
 
+
 ## Tracing our Flask App
 *TODO:*  We will create a Jaeger span to measure the processes on the backend. Once you fill in the span, provide a screenshot of it here.
 
