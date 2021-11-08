@@ -1,4 +1,4 @@
-# kubectl port-forward -n observability  service/simplest-query --address 0.0.0.0 16686:16686
+# kubectl port-forward -n service/simplest-query --address 0.0.0.0 16686:16686
 # kubectl port-forward -n monitoring prometheus-grafana-5cddc775c4-grgz9 --address 0.0.0.0 3000
 # kubectl port-forward service/backend  8081
 #kubectl port-forward service/frontend 8082

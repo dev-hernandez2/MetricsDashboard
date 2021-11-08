@@ -40,6 +40,8 @@
 
 ![sli_slo_dashboard_screeshot](answer-img/sli_slo_dashboard_screeshot.png)
 
+![sli_slo_dashboard_screeshot_02](answer-img/sli_slo_dashboard_screeshot_02.png)
+
 
 ## Tracing our Flask App
 *TODO:*  We will create a Jaeger span to measure the processes on the backend. Once you fill in the span, provide a screenshot of it here.
@@ -74,16 +76,20 @@ Description: went running backend service route "/star" get a error and the serv
 ## Creating SLIs and SLOs
 *TODO:* We want to create an SLO guaranteeing that our application has a 99.95% uptime per month. Name three SLIs that you would use to measure the success of this SLO.
 
-- Application service uptime 
+- Applications service uptime 
 - CPU and memory usage 
 - Request and Response time 
+- Http Errors (4xx or 5xx error)
 
 ## Building KPIs for our plan
 *TODO*: Now that we have our SLIs and SLOs, create KPIs to accurately measure these metrics. We will make a dashboard for this, but first write them down here.
 
-- Uptime:  need to be al lest 99% service up and running
-- Error Rate: will be less than 95%
-- CPU and Memory usage: need to watch overload procesing 
+- Backend and Frontend Uptime
+    - Mesure the availability of services Uptime to make sure it is accessible for the client
+- Error Rate mesure (4xx or 5xx error):
+    - Measure the number of failed (non HTTP 200) responses per second
+- CPU and Memory usage    
+    - Server CPU and memory usage, keep on low to prevent loss availability of services.
 
 ## Final Dashboard
 *TODO*: Create a Dashboard containing graphs that capture all the metrics of your KPIs and adequately representing your SLIs and SLOs. Include a screenshot of the dashboard here, and write a text description of what graphs are represented in the dashboard.  
