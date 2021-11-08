@@ -51,6 +51,8 @@
 
 ![Jaeger_on_grafana_dashboard](answer-img/Jaeger_on_grafana_dashboard.png)
 
+![Jaeger_on_grafana_dashboard_02](answer-img/Jaeger_on_grafana_dashboard_02.png)
+
 ## Report Error
 *TODO:* Using the template below, write a trouble ticket for the developers, to explain the errors that you are seeing (400, 500, latency) and to let them know the file that is causing the issue.
 
@@ -72,8 +74,20 @@ Description: went running backend service route "/star" get a error and the serv
 ## Creating SLIs and SLOs
 *TODO:* We want to create an SLO guaranteeing that our application has a 99.95% uptime per month. Name three SLIs that you would use to measure the success of this SLO.
 
+- Application service uptime 
+- CPU and memory usage 
+- Request and Response time 
+
 ## Building KPIs for our plan
 *TODO*: Now that we have our SLIs and SLOs, create KPIs to accurately measure these metrics. We will make a dashboard for this, but first write them down here.
 
+- Uptime:  need to be al lest 99% service up and running
+- Error Rate: will be less than 95%
+- CPU and Memory usage: need to watch overload procesing 
+
 ## Final Dashboard
 *TODO*: Create a Dashboard containing graphs that capture all the metrics of your KPIs and adequately representing your SLIs and SLOs. Include a screenshot of the dashboard here, and write a text description of what graphs are represented in the dashboard.  
+
+![final_dashboard](answer-img/final_dashboard.png)
+
+![final_dashboard_02](answer-img/final_dashboard_02.png)
