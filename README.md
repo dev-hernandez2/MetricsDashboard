@@ -51,7 +51,7 @@
 ## Jaeger in Dashboards
 *TODO:* Now that the trace is running, let's add the metric to our current Grafana dashboard. Once this is completed, provide a screenshot of it here.
 
-![Jaeger_on_grafana_dashboard](answer-img/Jaeger_on_grafana_dashboard.png)
+![Jaeger_on_grafana_dashboard_01](answer-img/Jaeger_on_grafana_dashboard_01.png)
 
 ![Jaeger_on_grafana_dashboard_02](answer-img/Jaeger_on_grafana_dashboard_02.png)
 
@@ -94,6 +94,6 @@ Description: went running backend service route "/star" get a error and the serv
 ## Final Dashboard
 *TODO*: Create a Dashboard containing graphs that capture all the metrics of your KPIs and adequately representing your SLIs and SLOs. Include a screenshot of the dashboard here, and write a text description of what graphs are represented in the dashboard.  
 
-![final_dashboard](answer-img/final_dashboard.png)
+![final_dashboard_01](answer-img/final_dashboard_01.png)
 
-![final_dashboard_02](answer-img/final_dashboard_02.png)
+![final_dashboard_03](answer-img/final_dashboard_03.png)
