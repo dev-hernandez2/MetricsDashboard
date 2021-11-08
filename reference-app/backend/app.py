@@ -12,7 +12,7 @@ from jaeger_client import Config
 from jaeger_client.metrics.prometheus import PrometheusMetricsFactory
 from flask_opentracing import FlaskTracing
 
-## jaeger
+#==================================jaeger========================================
 def config_tracer():
     config = Config(
            config = {
@@ -28,7 +28,7 @@ def config_tracer():
         metrics_factory=PrometheusMetricsFactory(service_name_label="backend_server")
     )
     return config.initialize_tracer()
-## jaeger
+#==========================================jaeger ends=======================================
 
 app = Flask(__name__)
 
