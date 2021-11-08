@@ -4,6 +4,7 @@ from prometheus_flask_exporter.multiprocess import GunicornInternalPrometheusMet
 app = Flask(__name__)
 metrics = GunicornInternalPrometheusMetrics(app)
 
+
 @app.route('/')
 def homepage():
     return render_template("main.html")
