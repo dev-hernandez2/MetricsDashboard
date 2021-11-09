@@ -51,7 +51,7 @@
 ## Jaeger in Dashboards
 *TODO:* Now that the trace is running, let's add the metric to our current Grafana dashboard. Once this is completed, provide a screenshot of it here.
 
-![Jaeger_on_grafana_dashboard_01](answer-img/Jaeger_on_grafana_dashboard_01.png)
+![Jaeger_on_grafana_dashboard](answer-img/Jaeger_on_grafana_dashboard.png)
 
 ![Jaeger_on_grafana_dashboard_02](answer-img/Jaeger_on_grafana_dashboard_02.png)
 
