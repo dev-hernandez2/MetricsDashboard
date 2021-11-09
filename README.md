@@ -84,16 +84,40 @@ Description: went running backend service route "/star" get a error and the serv
 ## Building KPIs for our plan
 *TODO*: Now that we have our SLIs and SLOs, create KPIs to accurately measure these metrics. We will make a dashboard for this, but first write them down here.
 
-- Backend and Frontend Uptime
-    - Mesure the availability of services Uptime to make sure it is accessible for the client
-- Error Rate mesure (4xx or 5xx error):
-    - Measure the number of failed (non HTTP 200) responses per second
-- CPU and Memory usage    
-    - Server CPU and memory usage, keep on low to prevent loss availability of services.
+1. Server CPU and memory usage, keep on low to prevent loss availability of services. 
+    - Server CPU usage
+    - Server Memory Usage
+
+2. Mesure the availability of services Uptime to make sure it is accessible for the client
+    - Mesure Backend Uptime
+    - Mesure Frontend Uptime
+
+3. Measure the number of failed (non HTTP 200) responses per second
+    - Error 4xx mesure
+    - Error 5xx mesure
+    
+4. Services Request and Response metrics to mesure the number of ping we get into the services
+    - Total requests per minute
+    - Average response
 
 ## Final Dashboard
 *TODO*: Create a Dashboard containing graphs that capture all the metrics of your KPIs and adequately representing your SLIs and SLOs. Include a screenshot of the dashboard here, and write a text description of what graphs are represented in the dashboard.  
 
-![final_dashboard_01](answer-img/final_dashboard_01.png)
+![final_dashboard_04](answer-img/final_dashboard_04.png)
 
-![final_dashboard_03](answer-img/final_dashboard_03.png)
+
+1. CPU And Memory usage 
+    - measure the memory and CPU to prevent overloading and excessive use of resources 
+
+2. Services Uptime
+    - Watch the uptime of the backend and frontend service to make sure availability
+
+3. Services Request and Response metrics
+    - measure the request of the services per minutes
+    - watch the services responses 
+
+4. HTTP's Errors 
+    - calculate the application HTTP's Errors and see if the service API is working correctly 
+
+5. Jaeger Traces Metric
+    - Measure the backend jaeger traces 
